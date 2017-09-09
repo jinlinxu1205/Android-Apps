@@ -1,0 +1,82 @@
+package com.example.jinlin.password;
+import java.util.ArrayList;
+import java.util.Collections;
+
+/**This class is the generator class, it has method which gets length of password, number of numbers
+ * and symbols in the password and returns a password as string. It also has method which generates
+ * parts of the password, as random numbers, symbols, or letters.
+ * Created by Jinlin on 3/10/17.
+ */
+
+public class Generator {
+    static final  String num = "0123456789";
+    static final String sym = "~!@#$%^&*()_-+=:;\\\"'|<>{}[]/?";
+    static final String let = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+
+    /**This method accepts the length, number of numbers and number of symbols and returns the required
+     * password as a string. It calls the helper method sourceGenerator to generate random numbers,
+     * symbols or letters that fulfill user's requirement
+     * @param length length of password
+     * @param numbers number of numbers in the password
+     * @param symbols number of symbols in the password
+     * @return password as a string
+     */
+    public static String generator(int length, int numbers, int symbols){
+
+        if ((length < (numbers + symbols)) || length == 0){
+            return "";
+        }
+
+        int letters = length - numbers - symbols;
+
+        ArrayList<Character> num = sourceGenerator(numbers,"num");
+        ArrayList<Character> sym = sourceGenerator(symbols,"sym");
+        ArrayList<Character> let = sourceGenerator(letters,"let");
+
+        ArrayList<Character> passwordList = new ArrayList<>();
+        passwordList.addAll(num);
+        passwordList.addAll(sym);
+        passwordList.addAll(let);
+        Collections.shuffle(passwordList);
+
+        StringBuilder password = new StringBuilder(passwordList.size());
+        for(Character ch: passwordList) {
+            password.append(ch);
+        }
+        return password.toString();
+    }
+
+    /** This method generates an ArrayList with specified size and type like numbers, symbols, or letters.
+     * @param size size of the ArrayList
+     * @param type numbers, symbols, or letters
+     * @return
+     */
+    public static ArrayList<Character> sourceGenerator(int size, String type){
+        ArrayList<Character> source = new ArrayList<>();
+        switch(type){
+            case "num":
+                for (int i = 0; i < size; i ++){
+                    int random = (int)(Math.random()*num.length());
+                    char character = num.charAt(random);
+                    source.add(character);
+                }
+                break;
+            case "sym":
+                for (int i = 0; i < size; i ++){
+                    int random = (int)(Math.random()*sym.length());
+                    char character = sym.charAt(random);
+                    source.add(character);
+                }
+                break;
+            case "let":
+                for (int i = 0; i < size; i ++){
+                    int random = (int)(Math.random()*let.length());
+                    char character = let.charAt(random);
+                    source.add(character);
+                }
+                break;
+        }
+        return source;
+    }
+}

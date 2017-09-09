@@ -1,0 +1,63 @@
+package com.example.jinlin.spendingtracker;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Jinlin on 4/17/17.
+ */
+
+public class User implements Parcelable{
+    public ArrayList<Expense> expensesList;
+
+    public User(){
+
+    }
+
+    protected User(Parcel in) {
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return expensesList != null ? expensesList.equals(user.expensesList) : user.expensesList == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return expensesList != null ? expensesList.hashCode() : 0;
+    }
+
+    public User(ArrayList<Expense> expensesList, int userID) {
+        this.expensesList = expensesList;
+    }
+}

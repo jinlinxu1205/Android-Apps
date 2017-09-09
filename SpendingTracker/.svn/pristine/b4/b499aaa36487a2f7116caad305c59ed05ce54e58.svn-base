@@ -1,0 +1,38 @@
+package com.example.jinlin.spendingtracker;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+public class ExpenseDetailActivity extends AppCompatActivity {
+
+    private TextView mitemView;
+    private TextView mlocationView;
+    private TextView mdateView;
+    private ImageView mImageView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_expense_detail);
+
+        mitemView = (TextView) findViewById(R.id.itemView);
+        mlocationView = (TextView) findViewById(R.id.locationView);
+        mdateView = (TextView) findViewById(R.id.dateView);
+        mImageView = (ImageView) findViewById(R.id.receiptView);
+
+        Intent intent = getIntent();
+        String json = intent.getStringExtra("expense");
+        Gson gson = new Gson();
+        Expense expense = gson.fromJson(json, Expense.class);
+
+        mitemView.setText(expense.getItem());
+        mlocationView.setText(expense.getLocation());
+        mdateView.setText(expense.getDate());
+       // Picasso.with(mImageView.getContext()).load(movies.getImageUrl()).into(mImageView);
+    }
+}

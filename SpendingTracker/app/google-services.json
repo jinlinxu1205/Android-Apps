@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1067680767108",
+    "firebase_url": "https://spending-tracker-dc431.firebaseio.com",
+    "project_id": "spending-tracker-dc431",
+    "storage_bucket": "spending-tracker-dc431.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067680767108:android:d2de90ea225a6573",
+        "android_client_info": {
+          "package_name": "com.example.jinlin.spendingtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067680767108-gsmaamd0df9p0hahli1clsg2oqn68f4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jinlin.spendingtracker",
+            "certificate_hash": "5bc7af6fbfecce5ce43f2e1b09730cd46c11ae60"
+          }
+        },
+        {
+          "client_id": "1067680767108-u1m57avg9ji1mau19ch5t62ta15dfvc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAANaNESs7ck3UaQbmc8i-KM1J1pNDGybo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067680767108-u1m57avg9ji1mau19ch5t62ta15dfvc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,84 @@
+package com.example.jinlin.spendingtracker;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+/**This the MainPageActivity class. It displays all the expense and has "add expense" and "deal" button.
+ * It will start a new activity according to user's click. It also has the expenseList which stores all
+ * expenses as the static member of the class.
+ */
+public class MainPageActivity extends AppCompatActivity{
+    public static final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    public static DatabaseReference mUserReference;
+    public static String userID;
+    public static ArrayList<Expense> expensesList = new ArrayList<>();
+
+    private RecyclerView mRecyclerView;
+    private ExpenseAdapter mExpenseAdapter;
+
+    Button addExpense;
+    Button deal;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_page);
+
+        Intent intent = getIntent();
+        userID = intent.getStringExtra("userID");
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mExpenseAdapter = new ExpenseAdapter(expensesList);
+        mRecyclerView.setAdapter(mExpenseAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        mUserReference = mDatabase.getReference("users/" + userID);
+
+        mUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<ArrayList<Expense>> genericTypeIndicator =new GenericTypeIndicator<ArrayList<Expense>>(){};
+                expensesList = dataSnapshot.child("expenseList").getValue(genericTypeIndicator);
+                mExpenseAdapter.updateData(expensesList);
+                mExpenseAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        addExpense = (Button)findViewById(R.id.addExpense);
+        addExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ExpenseDetailEdit.class);
+                startActivity(intent);
+            }
+        });
+
+        deal = (Button) findViewById(R.id.deal);
+        deal.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(),DealActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+}

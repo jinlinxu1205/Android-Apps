@@ -1,0 +1,49 @@
+package com.example.jinlin.spendingtracker;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Jinlin on 4/17/17.
+ */
+
+public class User {
+    private List<Expense> expensesList;
+    private String userID;
+
+    public User(List<Expense> expensesList, int userID) {
+        this.expensesList = expensesList;
+        this.userID = "user" + Integer.toString(userID);
+    }
+    public User(){
+
+    }
+
+    public List<Expense> getExpensesList() {
+        return expensesList;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (expensesList != null ? !expensesList.equals(user.expensesList) : user.expensesList != null)
+            return false;
+        return userID != null ? userID.equals(user.userID) : user.userID == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = expensesList != null ? expensesList.hashCode() : 0;
+        result = 31 * result + (userID != null ? userID.hashCode() : 0);
+        return result;
+    }
+}

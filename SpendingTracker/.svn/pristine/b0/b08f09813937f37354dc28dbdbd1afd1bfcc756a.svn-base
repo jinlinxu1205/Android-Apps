@@ -1,0 +1,126 @@
+package com.example.jinlin.spendingtracker;
+
+import android.net.Uri;
+
+/**
+ * Created by Jinlin on 4/17/17.
+ */
+
+public class Expense {
+    private String item;
+    private double amountMoney;
+    private String location;
+    private String month;
+    private int year;
+    private int day;
+    private Uri imageFile;
+
+    public Expense(String item, double amountMoney, String location, String month, int year, int day, Uri imageFile) {
+        this.item = item;
+        this.amountMoney = amountMoney;
+        this.location = location;
+        this.month = month;
+        this.year = year;
+        this.day = day;
+        this.imageFile = imageFile;
+    }
+
+    public Expense(String item, double amountMoney, String location, String month, int year, int day) {
+        this.item = item;
+        this.amountMoney = amountMoney;
+        this.location = location;
+        this.month = month;
+        this.year = year;
+        this.day = day;
+        this.imageFile = null;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public double getAmountMoney() {
+        return amountMoney;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public Uri getImageFile() {
+        return imageFile;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public void setAmountMoney(double amountMoney) {
+        this.amountMoney = amountMoney;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setImageFile(Uri imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Expense expense = (Expense) o;
+
+        if (Double.compare(expense.amountMoney, amountMoney) != 0) return false;
+        if (year != expense.year) return false;
+        if (day != expense.day) return false;
+        if (item != null ? !item.equals(expense.item) : expense.item != null) return false;
+        if (location != null ? !location.equals(expense.location) : expense.location != null)
+            return false;
+        if (month != null ? !month.equals(expense.month) : expense.month != null) return false;
+        return imageFile != null ? imageFile.equals(expense.imageFile) : expense.imageFile == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = item != null ? item.hashCode() : 0;
+        temp = Double.doubleToLongBits(amountMoney);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (month != null ? month.hashCode() : 0);
+        result = 31 * result + year;
+        result = 31 * result + day;
+        result = 31 * result + (imageFile != null ? imageFile.hashCode() : 0);
+        return result;
+    }
+}
